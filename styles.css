@@ -1,0 +1,120 @@
+body {
+    font-family: sans-serif;
+  }
+  
+  .square {
+    background: blue;
+    width: 50px;
+    height: 50px;
+  }
+  
+  table {
+    position: relative;
+    left: 52px;
+    margin: 0 100px 0 0;
+  }
+  
+  #workplace {
+    display: inline-block;
+  }
+  
+  #addColumn {
+    width: 52px;
+    height: 52px;
+    position: absolute;
+    background: orange;
+    top: 60px;
+    left: 224px;
+    color: white;
+    text-align: center;
+    font-size: 2em;
+    font-weight: 600;
+    line-height: 50px;
+    cursor: pointer;
+  }
+  
+  #addRow {
+    width: 52px;
+    height: 52px;
+    position: absolute;
+    background: orange;
+    top: 222px;
+    left: 62px;
+    color: white;
+    text-align: center;
+    font-size: 2em;
+    font-weight: 600;
+    line-height: 50px;
+    cursor: pointer;
+  }
+  
+  #removeColumn {
+    width: 52px;
+    height: 52px;
+    position: absolute;
+    background: red;
+    top: 6px;
+    left: 62px;
+    color: white;
+    display: none;
+    text-align: center;
+    font-size: 2em;
+    font-weight: 600;
+    line-height: 50px;
+    cursor: pointer;
+  }
+  
+  #removeRow {
+    width: 52px;
+    height: 52px;
+    position: absolute;
+    background: red;
+    top: 60px;
+    color: white;
+    display: none;
+    text-align: center;
+    font-size: 2em;
+    font-weight: 600;
+    line-height: 50px;
+    cursor: pointer;
+  }
+  
+  .none1 {
+    width: 50px;
+    height: 50px;
+    position: relative;
+  }
+  
+  .none2 {
+    width: 50px;
+    height: 50px;
+    position: relative;
+  }
+  
+  #workplace:hover #removeColumn {
+    display: block;
+  }
+  
+  #workplace:hover #removeRow {
+    display: block;
+  }
+  
+  .square:hover {
+    background: #8484ff;
+  }
+  
+  #addColumn:hover {
+    background: #ffc560;
+  }
+  
+  #addRow:hover {
+    background: #ffc560;
+  }
+  
+  #removeColumn:hover {
+    background: #ff6b6b;
+  }
+  
+  #removeRow:hover {
+    background: #ff6b6b;
+  }
