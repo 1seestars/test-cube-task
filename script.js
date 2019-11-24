@@ -29,7 +29,9 @@ addColumn.onclick = () => {
   addDist2 = `${+addDist2 + +addDiff2}`;
 };
 
-removeRow.onclick = () => {};
+removeRow.onclick = () => {
+    console.log(1)
+};
 
 removeColumn.onclick = () => {};
 
