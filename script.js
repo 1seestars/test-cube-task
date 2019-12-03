@@ -1,48 +1,85 @@
-let addRow = document.querySelector("#addRow");
-let addColumn = document.querySelector("#addColumn");
-let removeRow = document.querySelector("#removeRow");
-let removeColumn = document.querySelector("#removeColumn");
-let addDist = "222";
-let addDiff = "54";
-let addDist2 = "224";
-let addDiff2 = "54";
-let table = document.querySelector("#table");
+const addRow = document.querySelector("#addRow")
+const addColumn = document.querySelector("#addColumn")
+const removeRow = document.querySelector("#removeRow")
+const removeColumn = document.querySelector("#removeColumn")
+const workplace = document.querySelector("#workplace")
+const difference = 54
+let countColumn = 3
+let countRow = 3
 
-addRow.onclick = () => {
-  let origin = document.querySelector("#origin");
-  let tr2 = origin.cloneNode(true);
+const getCoords = elem => {
+  let box = elem.getBoundingClientRect()
 
-  table.append(tr2);
+  return {
+    top: box.top + pageYOffset,
+    left: box.left + pageXOffset
+  }
+}
 
-  addRow.style.top = `${+addDist + +addDiff}px`;
-  addDist = `${+addDist + +addDiff}`;
-};
-
-addColumn.onclick = () => {
-  let columns = document.querySelectorAll("tr");
-
+const showRemoveCubes = () => {
+  let columns = document.querySelectorAll("td")
   for (let column of columns) {
-    column.insertAdjacentHTML("beforeend", '<td class = "square">');
+    column.addEventListener("mouseover", () => {
+      removeRow.style.top = getCoords(column).top + "px"
+      removeColumn.style.left = getCoords(column).left + "px"
+    })
+  }
+}
+
+addColumn.addEventListener('click', () => {
+  let rows = document.querySelectorAll("tr")
+  ++countColumn
+  for (let row of rows) {
+    row.insertAdjacentHTML("beforeend", '<td class = "square">')
+  }
+  addColumn.style.left = getCoords(addColumn).left + difference + "px"
+  removeColumn.style.left = getCoords(addColumn).left - difference + "px"
+})
+
+addRow.addEventListener('click', () => {
+  let tr = document.querySelector(".row")
+  let tr2 = tr.cloneNode(true)
+  ++countRow
+  document.querySelector("table").append(tr2)
+  addRow.style.top = getCoords(addRow).top + difference + "px"
+  removeRow.style.top = getCoords(addRow).top - difference + "px";
+})
+
+removeColumn.addEventListener('click', () => {
+  let rows = document.querySelectorAll('tr')
+  if (countColumn > 1) {
+    for (let row of rows) {
+      let columns = row.querySelectorAll("td")
+      for (let column of columns) {
+        if (getCoords(column).left === getCoords(removeColumn).left) {
+          column.remove()
+          break
+        }
+      }
+    }
+    addColumn.style.left = getCoords(addColumn).left - difference + "px"
+    --countColumn
   }
 
-  addColumn.style.left = `${+addDist2 + +addDiff2}px`;
-  addDist2 = `${+addDist2 + +addDiff2}`;
-};
+  if (getCoords(removeColumn).left === getCoords(addColumn).left) {
+    removeColumn.style.left = getCoords(addColumn).left - difference + 'px'
+  }
+})
 
-removeRow.onclick = () => {
-    console.log(1)
-};
+removeRow.addEventListener('click', () => {
+  let rows = document.querySelectorAll("tr")
+  for (let row of rows) {
+    if (getCoords(row).top === getCoords(removeRow).top && countRow > 1) {
+      row.remove()
+      addRow.style.top = getCoords(addRow).top - difference + "px"
+      --countRow
+      break
+    }
+  }
 
-removeColumn.onclick = () => {};
+  if (getCoords(removeRow).top === getCoords(addRow).top) {
+    removeRow.style.top = getCoords(addRow).top - difference + 'px'
+  }
+})
 
-let div = document.createElement("div");
-div.className = "alert";
-div.innerHTML = "<strong>Всем привет!</strong> Вы прочитали важное сообщение.";
-
-document.body.append(div);
-div.style.opacity = "1";
-div.style.transition = "1s";
-setTimeout(() => {
-  div.style.opacity = "0";
-  setTimeout(() => this.remove(), 1000);
-}, 2000);
+workplace.addEventListener("mouseover", showRemoveCubes)
